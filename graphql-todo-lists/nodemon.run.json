@@ -1,0 +1,14 @@
+{
+    "events": {
+        "restart": "kill-port 4002",
+        "crash": "kill-port 4002"
+    },
+    "delay": 1500,
+    "watch": [
+        "src"
+    ],
+    "ignore": [
+        "src/**/*.spec.ts"
+    ],
+    "ext": "ts,graphql"
+}

@@ -1,0 +1,9 @@
+# Auth types
+directive @adminOnly on OBJECT | FIELD_DEFINITION
+directive @authorized(requires: [Roles]) on OBJECT | FIELD_DEFINITION
+directive @computed on FIELD_DEFINITION
+
+enum Roles {
+  ADMIN
+  REGISTERED_USER
+}

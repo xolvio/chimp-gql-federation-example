@@ -1,0 +1,12 @@
+mutation AddList($listName: String!) {
+    AddList(listName: $listName) {
+        id
+        name
+        incompleteCount
+        todos {
+            id
+            text
+            checked
+        }
+    }
+}

@@ -1,0 +1,12 @@
+query AllLists {
+  Lists {
+    id
+    name
+    incompleteCount
+    todos {
+      id
+      text
+      checked
+    }
+  }
+}

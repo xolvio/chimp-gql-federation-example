@@ -1,0 +1,102 @@
+"""
+Direct the client to resolve this field locally, either from the cache or local resolvers.
+"""
+directive @client(
+  """
+  When true, the client will never use the cache for this value. See
+  https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
+  """
+  always: Boolean
+) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
+
+"""
+Export this locally resolved field as a variable to be used in the remainder of this query. See
+https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
+"""
+directive @export(
+  """The variable name to export this field as."""
+  as: String!
+) on FIELD
+
+"""
+Specify a custom store key for this result. See
+https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
+"""
+directive @connection(
+  """Specify the store key."""
+  key: String!
+
+  """
+  An array of query argument names to include in the generated custom store key.
+  """
+  filter: [String!]
+) on FIELD
+
+input AdditionalEntityFields {
+  path: String
+  type: String
+}
+
+type List {
+  id: ID!
+  name: String!
+  todos: [TodoItem!]!
+  incompleteCount: Int!
+}
+
+type ListConnection {
+  edges: [ListEdge]!
+  pageInfo: PageInfo!
+}
+
+type ListEdge {
+  cursor: ID!
+  node: List!
+}
+
+input ListFilterQueryInput {
+  partialName: String
+}
+
+type Mutation {
+  RemoveItem(itemId: ID!): String!
+  AddTodo(listId: ID!, text: String!): TodoItem!
+  ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
+  RenameTodo(todoId: ID!, newText: String!): TodoItem!
+  RemoveList(listId: ID!): String!
+  AddList(listName: String!): List!
+  ChangeListName(listId: ID!, newName: String!): List!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: ID!
+  endCursor: ID!
+}
+
+input PaginationInput {
+  first: Int
+  after: ID
+  last: Int
+  before: ID
+}
+
+type Query {
+  Todos: [TodoItem!]!
+  Lists(filter: ListFilterQueryInput): [List!]!
+  PagedLists(paginationArgs: PaginationInput!, filter: ListFilterQueryInput): ListConnection!
+}
+
+enum Roles {
+  ADMIN
+  REGISTERED_USER
+}
+
+type TodoItem {
+  id: ID!
+  text: String
+  checked: Boolean!
+  listId: ID!
+  list: List
+}

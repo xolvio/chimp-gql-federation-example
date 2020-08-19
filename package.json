@@ -1,0 +1,53 @@
+{
+  "name": "chimp-gql-federation-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:db": "docker stop todos-apollo-mongo 2> /dev/null|| true && docker rm todos-apollo-mongo 2> /dev/null || true && docker run -p 27017:27017 --name todos-apollo-mongo -d mongo",
+    "start:todo-lists-microservice": "wait-on tcp:27017 && cd microservice-todo-lists && ./gradlew clean bootRun",
+    "start:todo-items-microservice": "wait-on tcp:27017 && cd microservice-todo-items && ./gradlew clean bootRun",
+    "start:initDB": "wait-on tcp:8090 && wait-on tcp:8091 && ./initDb.sh",
+    "start:todo-lists-graph": "wait-on tcp:8090 && cd graphql-todo-lists && npm run start",
+    "start:todo-items-graph": "wait-on tcp:8091 && cd graphql-todo-items && npm run start",
+    "start:gateway": "wait-on tcp:4001 && wait-on tcp:4002 && cd graphql-gateway && npm run start:local",
+    "start:auth-module": "cd auth-module && npm run start",
+    "start:web": "wait-on tcp:4000 && cd web && npm run start",
+    "install:todo-lists-graph": "cd graphql-todo-lists && npm install",
+    "install:todo-items-graph": "cd graphql-todo-items && npm install",
+    "install:gateway": "cd graphql-gateway && npm install",
+    "install:auth-module": "cd auth-module && npm install",
+    "install:web": "cd web && npm install",
+    "postinstall": "concurrently 'npm:install:*'",
+    "type-check:todo-lists-graph": "cd graphql-todo-lists && npm run type-check",
+    "type-check:todo-items-graph": "cd graphql-todo-items && npm run type-check",
+    "type-check": "concurrently -r 'npm:type-check:*'",
+    "precommit:todo-lists-graph": "cd graphql-todo-lists && npm run precommit",
+    "precommit:todo-items-graph": "cd graphql-todo-items && npm run precommit",
+    "precommit": "concurrently -r 'npm:precommit:*'",
+    "start": "concurrently 'npm:start:*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xolvio/chimp-gql-federation-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xolvio/chimp-gql-federation-example/issues"
+  },
+  "homepage": "https://github.com/xolvio/chimp-gql-federation-example#readme",
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "wait-on": "^5.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run type-check && npm run precommit:todo-lists-graph && npm run precommit:todo-items-graph"
+    }
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5"
+  }
+}

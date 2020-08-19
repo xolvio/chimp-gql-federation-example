@@ -1,0 +1,24 @@
+{
+  "name": "auth-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "JWT_SECRET='Yp3s6v9y$B&E)H@McQfThWmZq4t7w!z%' ts-node index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^26.0.0",
+    "@types/node": "^14.0.13",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}
