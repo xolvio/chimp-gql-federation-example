@@ -1,5 +1,5 @@
 import get from "lodash/get";
-import { PageInfo, PaginationInput } from "@generated/graphql/types";
+import { PageInfo, PaginationInput } from "~generated/graphql/types";
 
 export type Edge<T> = {
   node: T;

@@ -1,5 +1,5 @@
-import { ToDoList } from "@generated/external-apis";
-import { ListFilterQueryInput } from "@generated/graphql/types";
+import { ToDoList } from "~generated/external-apis";
+import { ListFilterQueryInput } from "~generated/graphql/types";
 
 export function filterLists(
   toDoLists: ToDoList[],

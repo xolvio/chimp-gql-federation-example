@@ -1,9 +1,9 @@
-/* eslint-disable no-param-reassign,@typescript-eslint/no-explicit-any,no-console,class-methods-use-this */
+/* eslint-disable no-param-reassign,@typescript-eslint/no-explicit-any,no-console,class-methods-use-this, @typescript-eslint/naming-convention */
 import { SchemaDirectiveVisitor } from "graphql-tools";
 import { defaultFieldResolver } from "graphql";
 import { GraphQLField } from "graphql/type/definition";
-import { GqlContext } from "@generated/graphql/types";
-import { authModule } from "@app/createApp";
+import { GqlContext } from "~generated/graphql/types";
+import { authModule } from "~app/createApp";
 
 export class AuthDirective extends SchemaDirectiveVisitor {
   visitObject(type): void {

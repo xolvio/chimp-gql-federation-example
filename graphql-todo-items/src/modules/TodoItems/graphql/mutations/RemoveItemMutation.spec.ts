@@ -1,5 +1,5 @@
 import td from "testdouble";
-import { MutationRemoveItemArgs } from "@generated/graphql/types";
+import { MutationRemoveItemArgs } from "~generated/graphql/types";
 import { RemoveItemMutation } from "./RemoveItemMutation";
 import { GqlContext } from "../../../../context";
 

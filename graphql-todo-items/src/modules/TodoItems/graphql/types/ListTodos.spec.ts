@@ -1,14 +1,9 @@
 import td from "testdouble";
 
-import { ResolversParentTypes } from "@generated/graphql/types";
-import { ToDoItem } from "@generated/external-apis";
-import { ListTodos } from "./ListTodos";
+import { ResolversParentTypes } from "~generated/graphql/types";
+import { ToDoItem } from "~generated/external-apis";
+import { testListTodos } from "~generated/graphql/helpers/ListTodosSpecWrapper";
 import { GqlContext } from "../../../../context";
-
-const testListTodos = (
-  parent: ResolversParentTypes["List"],
-  context: GqlContext
-) => ListTodos(parent, {}, context, null);
 
 test("ListTodos", async () => {
   const context = td.object<GqlContext>();

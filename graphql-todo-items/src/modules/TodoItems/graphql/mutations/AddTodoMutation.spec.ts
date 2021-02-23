@@ -1,6 +1,6 @@
 import td from "testdouble";
-import { MutationAddTodoArgs, GqlContext } from "@generated/graphql/types";
-import { ToDoItem } from "@generated/external-apis";
+import { MutationAddTodoArgs, GqlContext } from "~generated/graphql/types";
+import { ToDoItem } from "~generated/external-apis";
 import { AddTodoMutation } from "./AddTodoMutation";
 
 const testAddTodo = (variables: MutationAddTodoArgs, context: GqlContext) =>

@@ -1,5 +1,5 @@
 import td from "testdouble";
-import { MutationAddListArgs, GqlContext } from "@generated/graphql/types";
+import { MutationAddListArgs, GqlContext } from "~generated/graphql/types";
 import { AddListMutation } from "./AddListMutation";
 
 const testAddList = (variables: MutationAddListArgs, context: GqlContext) =>

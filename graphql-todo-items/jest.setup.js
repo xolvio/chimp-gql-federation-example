@@ -1,4 +1,4 @@
-const td = require('testdouble')
-require('testdouble-jest')(td, jest)
+const td = require("testdouble");
+require("testdouble-jest")(td, jest);
 
-process.env.TEST_ENV = "true"
+process.env.TEST_ENV = "true";

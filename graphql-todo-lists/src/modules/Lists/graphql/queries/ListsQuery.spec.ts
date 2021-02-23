@@ -1,6 +1,6 @@
 import td from "testdouble";
-import { QueryListsArgs, GqlContext } from "@generated/graphql/types";
-import { ToDoList } from "@generated/external-apis";
+import { QueryListsArgs, GqlContext } from "~generated/graphql/types";
+import { ToDoList } from "~generated/external-apis";
 import { ListsQuery } from "./ListsQuery";
 
 const testLists = (variables: QueryListsArgs, context: GqlContext) =>

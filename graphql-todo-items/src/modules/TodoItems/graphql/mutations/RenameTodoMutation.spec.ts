@@ -1,5 +1,5 @@
 import td from "testdouble";
-import { MutationRenameTodoArgs } from "@generated/graphql/types";
+import { MutationRenameTodoArgs } from "~generated/graphql/types";
 import { RenameTodoMutation } from "./RenameTodoMutation";
 import { GqlContext } from "../../../../context";
 
@@ -15,7 +15,7 @@ test("RenameTodo", async () => {
   const NEW_TEXT = "new text";
 
   const finalItem = {
-    _id: SOME_ID,
+    id: SOME_ID,
     text: NEW_TEXT,
   };
 

@@ -1,6 +1,6 @@
 import td from "testdouble";
 
-import { ToDoList } from "@generated/external-apis";
+import { ToDoList } from "~generated/external-apis";
 import { List__resolveReference } from "./List__resolveReference";
 import { GqlContext } from "../../../../context";
 

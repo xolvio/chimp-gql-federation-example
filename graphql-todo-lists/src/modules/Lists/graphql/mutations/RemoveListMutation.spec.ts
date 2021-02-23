@@ -1,5 +1,5 @@
 import td from "testdouble";
-import { MutationRemoveListArgs, GqlContext } from "@generated/graphql/types";
+import { MutationRemoveListArgs, GqlContext } from "~generated/graphql/types";
 import { RemoveListMutation } from "./RemoveListMutation";
 
 const testRemoveList = (

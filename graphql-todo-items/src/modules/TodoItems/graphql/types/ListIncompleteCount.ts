@@ -1,4 +1,4 @@
-import { ListResolvers } from "@generated/graphql/types";
+import { ListResolvers } from "~generated/graphql/types";
 
 export const ListIncompleteCount: ListResolvers["incompleteCount"] = async (
   parent,
