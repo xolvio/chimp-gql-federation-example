@@ -1,6 +1,6 @@
 import td from "testdouble";
 
-import { ToDoItem } from "@generated/external-apis";
+import { ToDoItem } from "~generated/external-apis";
 import { TodosQuery } from "./TodosQuery";
 import { GqlContext } from "../../../../context";
 

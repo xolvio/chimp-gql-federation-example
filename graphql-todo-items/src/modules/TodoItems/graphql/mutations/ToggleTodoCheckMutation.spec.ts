@@ -1,5 +1,5 @@
 import td from "testdouble";
-import { MutationToggleTodoCheckArgs } from "@generated/graphql/types";
+import { MutationToggleTodoCheckArgs } from "~generated/graphql/types";
 import { ToggleTodoCheckMutation } from "./ToggleTodoCheckMutation";
 import { GqlContext } from "../../../../context";
 

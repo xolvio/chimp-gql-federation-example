@@ -1,4 +1,4 @@
-/* eslint-disable global-require,max-classes-per-file,class-methods-use-this */
+/* eslint-disable global-require,max-classes-per-file,class-methods-use-this, @typescript-eslint/no-var-requires */
 import td from "testdouble";
 
 describe("Create proper cache key", () => {
@@ -39,7 +39,7 @@ describe("Create proper cache key", () => {
 
   test("using cacheableClass", async () => {
     class BaseClass {
-      methodToCache(prop: { name: string }): object {
+      methodToCache(prop: { name: string }): Record<string, unknown> {
         return prop;
       }
     }

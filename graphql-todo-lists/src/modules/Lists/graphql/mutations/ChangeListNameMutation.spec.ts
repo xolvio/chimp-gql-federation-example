@@ -2,7 +2,7 @@ import td from "testdouble";
 import {
   MutationChangeListNameArgs,
   GqlContext,
-} from "@generated/graphql/types";
+} from "~generated/graphql/types";
 import { ChangeListNameMutation } from "./ChangeListNameMutation";
 
 const testChangeListName = (

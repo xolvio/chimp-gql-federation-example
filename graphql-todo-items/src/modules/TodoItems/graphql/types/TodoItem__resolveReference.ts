@@ -1,4 +1,4 @@
-import { TodoItemResolvers } from "@generated/graphql/types";
+import { TodoItemResolvers } from "~generated/graphql/types";
 
 export const TodoItem__resolveReference: TodoItemResolvers["__resolveReference"] = async (
   parent,

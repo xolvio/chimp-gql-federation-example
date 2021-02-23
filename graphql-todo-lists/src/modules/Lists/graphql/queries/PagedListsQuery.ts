@@ -1,5 +1,5 @@
-import { QueryResolvers } from "@generated/graphql/types";
-import { getPage } from "@app/helpers/Paginator";
+import { QueryResolvers } from "~generated/graphql/types";
+import { getPage } from "~app/helpers/Paginator";
 import { filterLists } from "../../common/filterLists";
 
 export const PagedListsQuery: QueryResolvers["PagedLists"] = async (

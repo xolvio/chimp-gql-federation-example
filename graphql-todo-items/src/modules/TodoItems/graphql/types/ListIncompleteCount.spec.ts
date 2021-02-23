@@ -1,14 +1,9 @@
 import td from "testdouble";
 
-import { ResolversParentTypes } from "@generated/graphql/types";
-import { ToDoItem } from "@generated/external-apis";
-import { ListIncompleteCount } from "./ListIncompleteCount";
+import { ResolversParentTypes } from "~generated/graphql/types";
+import { ToDoItem } from "~generated/external-apis";
+import { testListIncompleteCount } from "~generated/graphql/helpers/ListIncompleteCountSpecWrapper";
 import { GqlContext } from "../../../../context";
-
-const testListIncompleteCount = (
-  parent: ResolversParentTypes["List"],
-  context: GqlContext
-) => ListIncompleteCount(parent, {}, context, null);
 
 test("gets the number of incomplete todos in the list", async () => {
   const context = td.object<GqlContext>();

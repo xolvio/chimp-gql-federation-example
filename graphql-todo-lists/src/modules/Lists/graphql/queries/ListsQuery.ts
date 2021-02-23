@@ -1,4 +1,4 @@
-import { QueryResolvers } from "@generated/graphql/types";
+import { QueryResolvers } from "~generated/graphql/types";
 import { filterLists } from "../../common/filterLists";
 
 export const ListsQuery: QueryResolvers["Lists"] = async (

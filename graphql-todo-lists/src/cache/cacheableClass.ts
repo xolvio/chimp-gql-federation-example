@@ -6,6 +6,7 @@ type CacheSettings = {
 };
 
 export function cacheableClass(...methodsToWrap: (CacheSettings | string)[]) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   return function <T extends { new (...args: any[]): {} }>(constructor: T) {
     return class extends constructor {
       constructor(...args: any[]) {

@@ -1,4 +1,4 @@
-import { MutationResolvers } from "@generated/graphql/types";
+import { MutationResolvers } from "~generated/graphql/types";
 
 export const AddListMutation: MutationResolvers["AddList"] = (
   parent,

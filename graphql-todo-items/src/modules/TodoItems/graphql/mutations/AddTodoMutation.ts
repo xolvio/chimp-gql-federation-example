@@ -1,4 +1,4 @@
-import { MutationResolvers, TodoItemDbObject } from "@generated/graphql/types";
+import { MutationResolvers, TodoItemDbObject } from "~generated/graphql/types";
 
 export const AddTodoMutation: MutationResolvers["AddTodo"] = (
   parent,

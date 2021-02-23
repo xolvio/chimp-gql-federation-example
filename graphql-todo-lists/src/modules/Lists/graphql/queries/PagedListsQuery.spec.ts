@@ -1,8 +1,10 @@
 /* eslint-disable import/first, import/order */
 import td from "testdouble";
-import * as getPageType from "@app/helpers/Paginator";
+import * as getPageType from "~app/helpers/Paginator";
 
-const { getPage } = td.replace("@app/helpers/Paginator") as typeof getPageType;
+const { getPage } = td.replace(
+  "../../../../helpers/Paginator"
+) as typeof getPageType;
 
 import * as filterListsType from "../../common/filterLists";
 
@@ -10,8 +12,8 @@ const { filterLists } = td.replace(
   "../../common/filterLists"
 ) as typeof filterListsType;
 
-import { QueryPagedListsArgs, GqlContext } from "@generated/graphql/types";
-import { ToDoList } from "@generated/external-apis";
+import { QueryPagedListsArgs, GqlContext } from "~generated/graphql/types";
+import { ToDoList } from "~generated/external-apis";
 import { PagedListsQuery } from "./PagedListsQuery";
 
 const testPagedLists = (variables: QueryPagedListsArgs, context: GqlContext) =>

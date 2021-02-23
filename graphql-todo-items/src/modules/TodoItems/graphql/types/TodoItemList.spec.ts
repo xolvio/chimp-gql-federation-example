@@ -1,6 +1,6 @@
 import td from "testdouble";
 
-import { ResolversParentTypes, GqlContext } from "@generated/graphql/types";
+import { ResolversParentTypes, GqlContext } from "~generated/graphql/types";
 import { TodoItemList } from "./TodoItemList";
 
 const testTodoItemList = (

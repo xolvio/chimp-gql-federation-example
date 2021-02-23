@@ -1,4 +1,4 @@
-import { ToDoList } from "@generated/external-apis";
+import { ToDoList } from "~generated/external-apis";
 import { filterLists } from "./filterLists";
 
 test("returns initial list if there is no filter argument in listFilterParams", async () => {

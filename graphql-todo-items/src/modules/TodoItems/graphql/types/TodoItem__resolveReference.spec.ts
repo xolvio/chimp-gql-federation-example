@@ -1,7 +1,7 @@
 import td from "testdouble";
 
-import { GqlContext } from "@generated/graphql/types";
-import { ToDoItem } from "@generated/external-apis";
+import { GqlContext } from "~generated/graphql/types";
+import { ToDoItem } from "~generated/external-apis";
 import { TodoItem__resolveReference } from "./TodoItem__resolveReference";
 
 type ParentType = Parameters<typeof TodoItem__resolveReference>[0];
