@@ -8,7 +8,7 @@ type MenuProps = { lists: [] };
 function Menu(props: MenuProps) {
   return (
     <Wrapper>
-      <UserMenu user={{}} />;
+      <UserMenu user={{}} />
       <ListNavigator lists={props.lists} />
     </Wrapper>
   );

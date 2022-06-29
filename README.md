@@ -16,6 +16,12 @@ This repository consists of 6 independent packages:
 
 `npm install`
 
-Make sure you have docker running. Then start all the projects including a dockerized instance of mongodb.
+Make sure you have docker running and Java installed. Then start all the projects including a dockerized instance of mongodb.
+
+If you have problems with Java take a look at this StackOverflow reply: https://stackoverflow.com/a/65562670
+
+Docker you can install from here: https://docs.docker.com/desktop/mac/install/
+
+Node >= 16.15.1 < 17
 
 `npm start`
