@@ -74,6 +74,8 @@ input AdditionalEntityFields {
   type: String
 }
 
+directive @predefined on SCALAR
+
 schema {
   query: Query
   mutation: Mutation

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "resolutions": {
-    "graphql": "0.13.2"
+    "graphql": "15.8.0"
   },
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.50",
@@ -23,7 +23,7 @@
     "apollo-link-ws": "1.0.9",
     "apollo-utilities": "1.0.21",
     "classnames": "^2.2.5",
-    "graphql": "^0.13.2",
+    "graphql": "15.8.0",
     "graphql-tag": "2.9.2",
     "history": "^4.7.2",
     "lodash": "^4.17.15",
