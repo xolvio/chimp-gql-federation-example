@@ -1,4 +1,3 @@
-/* global alert */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from "react";
@@ -20,7 +19,8 @@ export function ListNavigatorData({
     variables: {
       listName: "Empty List",
     },
-    update: (cache, {data: {AddList}}) => {
+    //TODO This any should not be here, something broke while updating deps before the demo 30 Jun 2022
+    update: (cache, {data: {AddList}}: any) => {
       const {Lists} = cache.readQuery({ query: AllListsDocument }) as {Lists: List[]};
 
       cache.writeQuery({

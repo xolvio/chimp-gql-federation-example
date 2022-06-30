@@ -1,4 +1,3 @@
-/* global confirm */
 /* eslint-disable no-alert, no-restricted-globals */
 
 import React from "react";
@@ -7,7 +6,7 @@ import SweetAlert from "sweetalert2-react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import MobileMenu from "../MobileMenu";
-import {AllListsDocument, List, RemoveListComponent, RemoveListDocument} from "../../generated/graphql";
+import {AllListsDocument, RemoveListComponent} from "../../generated/graphql";
 import styled from "styled-components";
 import ListTitle from "./ListTitle";
 import ListOptionsMobile from "./ListOptionsMobile";
@@ -15,11 +14,6 @@ import NewTodoInput from "./NewTodoInput";
 import ListNameEdit from "./ListNameEdit";
 import ListOptionsWeb from "./ListOptionsWeb";
 
-const removeListMutation = gql`
-  mutation RemoveList($listId: ID!) {
-    RemoveList(listId: $listId)
-  }
-`;
 
 const changeListNameMutation = gql`
   mutation($listId: ID!, $newName: String!) {
