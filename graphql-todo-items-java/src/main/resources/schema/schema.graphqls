@@ -1,0 +1,59 @@
+directive @contact(
+    "Contact title of the subgraph owner"
+    name: String!
+    "URL where the subgraph's owner can be reached"
+    url: String
+    "Other relevant notes can be included here; supports markdown links"
+    description: String
+) on SCHEMA
+
+schema
+@contact(
+    name: "FooBar Server Team"
+    url: "https://myteam.slack.com/archives/teams-chat-room-url"
+    description: "send urgent issues to [#oncall](https://yourteam.slack.com/archives/oncall)."
+)
+{
+    query: Query
+}
+
+type Query {
+    shows(titleFilter: String): [Show]
+}
+
+type Show @key(fields: "id") {
+    id: ID!
+    title: String
+    releaseYear: Int
+}
+
+
+
+
+type TodoItem @key(fields: "id") {
+    id: ID!
+    text: String
+    checked: Boolean!
+    listId: ID!
+    list: List
+}
+
+type List @key(fields: "id") @extends {
+    id: ID! @external
+    todos: [TodoItem!]!
+    incompleteCount: Int!
+}
+
+#extend type Mutation {
+#    RemoveItem(itemId: ID!): String!
+#    @authorized(requires: [ADMIN, REGISTERED_USER])
+#    AddTodo(listId: ID!, text: String!): TodoItem!
+#    @authorized(requires: [ADMIN, REGISTERED_USER])
+#    ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
+#    RenameTodo(todoId: ID!, newText: String!): TodoItem!
+#    @authorized(requires: [ADMIN, REGISTERED_USER])
+#}
+#
+#extend type Query {
+#    Todos: [TodoItem!]!
+#}
