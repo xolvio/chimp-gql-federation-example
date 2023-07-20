@@ -6,19 +6,23 @@ import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsEntityFetcher
+import io.swagger.client.apis.TodoItemControllerApi
 
 @DgsComponent
 class TodoItemsDataFetcher {
 
-    private val todoItems = listOf(
-            TodoItem("1", "First todo", true, "e7627f04-9220-4098-b9e4-8aae95fd3dae", null),
-            TodoItem("2", "Second todo", false, "e7627f04-9220-4098-b9e4-8aae95fd3dae", null)
-    )
+    fun todoItems(): List<TodoItem> {
+        val items = TodoItemControllerApi().getItems().map {
+            TodoItem(it.id.toString(), it.text, it.checked ?: false, it.listId.toString(), null)
+        }
+        println("todoItems: $items")
+        return items
+    }
 
     @DgsEntityFetcher(name = "TodoItem")
     fun fetchTodoItem(values: Map<String, Any>): TodoItem {
         val id = values["id"] as String
-        return todoItems.first { it.id == id }
+        return todoItems().first { it.id == id }
     }
 
     @DgsEntityFetcher(name = "List")
@@ -29,12 +33,12 @@ class TodoItemsDataFetcher {
     @DgsData(parentType = "List", field = "todos")
     fun fetchTodos(dataFetchingEnvironment: DgsDataFetchingEnvironment): List<TodoItem> {
         val list = dataFetchingEnvironment.getSource<TodoList>()
-        return todoItems.filter { it.listId == list.id }
+        return todoItems().filter { it.listId == list.id }
     }
 
     @DgsData(parentType = "List", field = "incompleteCount")
     fun fetchIncompleteCount(dataFetchingEnvironment: DgsDataFetchingEnvironment): Int {
         val list = dataFetchingEnvironment.getSource<TodoList>()
-        return todoItems.count { it.listId == list.id && !it.checked }
+        return todoItems().count { it.listId == list.id && !it.checked }
     }
 }

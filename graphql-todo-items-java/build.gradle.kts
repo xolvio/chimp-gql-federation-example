@@ -23,6 +23,10 @@ dependencies {
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
+    implementation("com.squareup.moshi:moshi-adapters:1.11.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
