@@ -145,10 +145,11 @@ export default class ListHeader extends React.Component {
             variables={{ listId: list.id }}
             update={(cache, {data: {RemoveList}}) => {
               const {Lists} = cache.readQuery({ query: AllListsDocument })
-
+              console.log("RemoveLsist", RemoveList)
+              console.log("Lists", Lists)
               cache.writeQuery({
                 query: AllListsDocument,
-                data: { Lists: Lists.filter(l => l.id !== RemoveList) },
+                data: { Lists: Lists.filter(l => l.id !== list.id) },
               });
             }}
           >

@@ -16,6 +16,5 @@ out/
 bin/
 
 ### swagger codegen
-src/main/kotlin
 .swagger-codegen
 docs/

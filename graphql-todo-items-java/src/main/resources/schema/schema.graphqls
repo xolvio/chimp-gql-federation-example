@@ -14,20 +14,8 @@ schema
     description: "send urgent issues to [#oncall](https://yourteam.slack.com/archives/oncall)."
 )
 {
-    query: Query
+    mutation: Mutation
 }
-
-type Query {
-    shows(titleFilter: String): [Show]
-}
-
-type Show @key(fields: "id") {
-    id: ID!
-    title: String
-    releaseYear: Int
-}
-
-
 
 
 type TodoItem @key(fields: "id") {
@@ -44,15 +32,15 @@ type List @key(fields: "id") @extends {
     incompleteCount: Int!
 }
 
-#extend type Mutation {
-#    RemoveItem(itemId: ID!): String!
+type Mutation {
+    RemoveItem(itemId: ID!): String!
 #    @authorized(requires: [ADMIN, REGISTERED_USER])
-#    AddTodo(listId: ID!, text: String!): TodoItem!
+    AddTodo(listId: ID!, text: String!): TodoItem!
 #    @authorized(requires: [ADMIN, REGISTERED_USER])
-#    ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
-#    RenameTodo(todoId: ID!, newText: String!): TodoItem!
+    ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
+    RenameTodo(todoId: ID!, newText: String!): TodoItem!
 #    @authorized(requires: [ADMIN, REGISTERED_USER])
-#}
+}
 #
 #extend type Query {
 #    Todos: [TodoItem!]!
