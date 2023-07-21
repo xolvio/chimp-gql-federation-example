@@ -21,7 +21,8 @@
     "postinstall": "concurrently 'npm:install:*'",
     "type-check": "concurrently -r 'npm:type-check:*'",
     "precommit": "concurrently -r 'npm:precommit:*'",
-    "start": "concurrently 'npm:start:*'"
+    "start": "concurrently 'npm:start:*'",
+    "installAll": "npm install --force"
   },
   "repository": {
     "type": "git",
