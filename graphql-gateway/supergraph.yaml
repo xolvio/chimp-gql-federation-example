@@ -1,0 +1,8 @@
+federation_version: =2.4.7
+subgraphs:
+  todo_items:
+    schema:
+      subgraph_url: http://localhost:4001/graphql
+  todo-lists:
+    schema:
+      subgraph_url: http://localhost:4002/graphql

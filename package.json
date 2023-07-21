@@ -14,7 +14,7 @@
     "start:todo-items-graph:build": "wait-on tcp:8090 && cd graphql-todo-items-java && ./gradlew build --continuous",
     "start:gateway": "wait-on tcp:4001 && wait-on tcp:4002 && cd graphql-gateway && npm run start:local",
     "start:auth-module": "cd auth-module && npm run start",
-    "start:web": "wait-on tcp:4000 && cd web && npm run start",
+    "start:web": "wait-on tcp:127.0.0.1:4000 && cd web && npm run start",
     "install:gateway": "cd graphql-gateway && npm install",
     "install:auth-module": "cd auth-module && npm install",
     "install:web": "cd web && npm install",
