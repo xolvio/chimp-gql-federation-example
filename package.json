@@ -17,12 +17,11 @@
     "start:web": "wait-on tcp:127.0.0.1:4000 && cd web && npm run start",
     "install:gateway": "cd graphql-gateway && npm install",
     "install:auth-module": "cd auth-module && npm install",
-    "install:web": "cd web && npm install",
+    "install:web": "cd web && npm install --force",
     "postinstall": "concurrently 'npm:install:*'",
     "type-check": "concurrently -r 'npm:type-check:*'",
     "precommit": "concurrently -r 'npm:precommit:*'",
-    "start": "concurrently 'npm:start:*'",
-    "installAll": "npm install --force"
+    "start": "concurrently 'npm:start:*'"
   },
   "repository": {
     "type": "git",
