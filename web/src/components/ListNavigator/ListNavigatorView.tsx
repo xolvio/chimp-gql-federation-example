@@ -24,7 +24,7 @@ export const ListNavigatorView = ({
           activeClassName="active"
         >
           {list.todos.length ? (
-            <span className="count-list">{list.todos.length}</span>
+            <span className="count-list">{list.incompleteCount}</span>
           ) : null}
           {list.name}
         </NavLinkStyled>
