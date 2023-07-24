@@ -223,9 +223,11 @@ export default class ListHeader extends React.Component {
           })}
           update={(proxy, { data: { AddTodo } }) => {
             const data = proxy.readQuery({ query: AllListsDocument });
-            data.Lists.find(l => l.id === this.props.list.id).todos.push(
+            const list = data.Lists.find(l => l.id === this.props.list.id);
+            list.todos.push(
               AddTodo
             );
+            list.incompleteCount++;
             proxy.writeQuery({ query: AllListsDocument, data });
           }}
         >
