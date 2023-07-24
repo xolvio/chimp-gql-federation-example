@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = {DgsAutoConfiguration.class, TodoItemsDataFetcher.class})
+//@SpringBootTest(classes = {DgsAutoConfiguration.class, TodoItemsDataFetcher.class})
 public class TodoItemsDataFetcherTests {
 
 //    @Autowired
