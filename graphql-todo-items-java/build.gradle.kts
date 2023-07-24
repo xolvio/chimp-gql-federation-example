@@ -28,8 +28,12 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
     implementation("com.squareup.moshi:moshi-adapters:1.11.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.mockito:mockito-core:3.12.4")
+	testImplementation("com.netflix.graphql.dgs:graphql-dgs-extended-validation:latest.release")
 }
 
 @OptIn(kotlin.ExperimentalStdlibApi::class)
