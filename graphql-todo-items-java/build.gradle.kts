@@ -14,6 +14,7 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
 
+
 repositories {
 	mavenCentral()
 }
@@ -41,4 +42,12 @@ tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs += "-Xjvm-default=all"
+    }
 }
