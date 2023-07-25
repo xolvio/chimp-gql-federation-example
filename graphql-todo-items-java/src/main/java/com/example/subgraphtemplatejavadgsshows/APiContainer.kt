@@ -9,11 +9,4 @@ class APiContainer {
     fun todoItem(): TodoItemControllerApi {
         return TodoItemControllerApi()
     }
-    fun fetchTodoItems(): List<TodoItem> {
-        val items = TodoItemControllerApi().getItems().map {
-            TodoItem(it.id.toString(), it.text, it.checked ?: false, it.listId.toString(), null)
-        }
-        println("todoItems container: $items")
-        return items
-    }
 }
