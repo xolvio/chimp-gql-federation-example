@@ -26,41 +26,14 @@ type List @key(fields: "id") {
 input ListFilterQueryInput {
     partialName: String
 }
-#
-#input PaginationInput {
-#    first: Int
-#    after: ID
-#    last: Int
-#    before: ID
-#}
-#
-#type PageInfo {
-#    hasNextPage: Boolean!
-#    hasPreviousPage: Boolean!
-#    startCursor: ID!
-#    endCursor: ID!
-#}
-#type ListEdge {
-#    cursor: ID!
-#    node: List!
-#}
-#type ListConnection {
-#    edges: [ListEdge]!
-#    pageInfo: PageInfo!
-#}
+
 
 type Query {
     Lists(filter: ListFilterQueryInput): [List!]!
-#    PagedLists(
-#        paginationArgs: PaginationInput!
-#        filter: ListFilterQueryInput
-#    ): ListConnection!
 }
 
 type Mutation {
     RemoveList(listId: ID!): String!
-    # @authorized(requires: [ADMIN])
     AddList(listName: String!): List!
-    # @authorized(requires: [ADMIN, REGISTERED_USER])
     ChangeListName(listId: ID!, newName: String!): List!
 }

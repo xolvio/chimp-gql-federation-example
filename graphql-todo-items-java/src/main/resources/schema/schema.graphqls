@@ -34,12 +34,9 @@ type List @key(fields: "id") @extends {
 
 type Mutation {
     RemoveItem(itemId: ID!): String!
-#    @authorized(requires: [ADMIN, REGISTERED_USER])
     AddTodo(listId: ID!, text: String!): TodoItem!
-#    @authorized(requires: [ADMIN, REGISTERED_USER])
     ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
     RenameTodo(todoId: ID!, newText: String!): TodoItem!
-#    @authorized(requires: [ADMIN, REGISTERED_USER])
 }
 #
 #extend type Query {
