@@ -23,10 +23,10 @@ type TodoItem @key(fields: "id") {
     text: String
     checked: Boolean!
     listId: ID!
-    list: List
+    list: TodoList
 }
 
-type List @key(fields: "id") @extends {
+type TodoList @key(fields: "id") @extends {
     id: ID! @external
     todos: [TodoItem!]!
     incompleteCount: Int!

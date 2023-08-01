@@ -31,14 +31,19 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
+val generatedPackageName = "com.example.subgraphtemplatejavadgsshows"
+val schemaPath = "${projectDir}/src/main/resources/schema"
+
 @OptIn(kotlin.ExperimentalStdlibApi::class)
 tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
-	schemaPaths = listOf("${projectDir}/src/main/resources/schema").toMutableList()
+	schemaPaths = listOf(schemaPath).toMutableList()
 	generateClient = true
-	packageName = "com.example.subgraphtemplatejavadgsshows"
+	packageName = generatedPackageName
 }
 
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+    systemProperty("packageName", generatedPackageName)
+    systemProperty("schemaPath", schemaPath)
 }

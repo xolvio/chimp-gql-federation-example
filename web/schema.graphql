@@ -37,7 +37,7 @@ input AdditionalEntityFields {
   type: String
 }
 
-type List {
+type TodoList {
   id: ID!
   name: String!
   todos: [TodoItem!]!
@@ -51,7 +51,7 @@ type ListConnection {
 
 type ListEdge {
   cursor: ID!
-  node: List!
+  node: TodoList!
 }
 
 input ListFilterQueryInput {
@@ -64,8 +64,8 @@ type Mutation {
   ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
   RenameTodo(todoId: ID!, newText: String!): TodoItem!
   RemoveList(listId: ID!): String!
-  AddList(listName: String!): List!
-  ChangeListName(listId: ID!, newName: String!): List!
+  AddList(listName: String!): TodoList!
+  ChangeListName(listId: ID!, newName: String!): TodoList!
 }
 
 type PageInfo {
@@ -84,7 +84,7 @@ input PaginationInput {
 
 type Query {
   Todos: [TodoItem!]!
-  Lists(filter: ListFilterQueryInput): [List!]!
+  Lists(filter: ListFilterQueryInput): [TodoList!]!
   PagedLists(paginationArgs: PaginationInput!, filter: ListFilterQueryInput): ListConnection!
 }
 
@@ -98,5 +98,5 @@ type TodoItem {
   text: String
   checked: Boolean!
   listId: ID!
-  list: List
+  list: TodoList
 }
