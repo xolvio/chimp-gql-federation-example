@@ -1,6 +1,6 @@
 package com.example.subgraphtemplatejavadgsshows.todoitems;
 
-import com.example.subgraphtemplatejavadgsshows.APiContainer;
+import com.example.subgraphtemplatejavadgsshows.ApiContainer;
 import com.example.subgraphtemplatejavadgsshows.types.TodoItem;
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
 import com.netflix.graphql.dgs.DgsQueryExecutor;

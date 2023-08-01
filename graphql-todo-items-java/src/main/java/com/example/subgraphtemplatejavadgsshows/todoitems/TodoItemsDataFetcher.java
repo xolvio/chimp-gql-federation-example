@@ -2,7 +2,7 @@ package com.example.subgraphtemplatejavadgsshows.todoitems;
 
 import com.example.subgraphtemplatejavadgsshows.DgsConstants;
 import com.example.subgraphtemplatejavadgsshows.types.TodoItem;
-import com.example.subgraphtemplatejavadgsshows.types.List;
+import com.example.subgraphtemplatejavadgsshows.types.TodoList;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
@@ -26,20 +26,20 @@ public class TodoItemsDataFetcher {
         return mapper.todoItemToDgsTodoItem(itemsService.fetchById((String) values.get("id")));
     }
 
-    @DgsEntityFetcher(name = DgsConstants.LIST.TYPE_NAME)
-    public List fetchList(Map<String, Object> values) {
-        return new List((String) values.get("id"), java.util.List.of(), 0);
+    @DgsEntityFetcher(name = DgsConstants.TODOLIST.TYPE_NAME)
+    public TodoList fetchList(Map<String, Object> values) {
+        return new TodoList((String) values.get("id"), java.util.List.of(), 0);
     }
 
-    @DgsData(parentType = DgsConstants.LIST.TYPE_NAME)
+    @DgsData(parentType = DgsConstants.TODOLIST.TYPE_NAME)
     public java.util.List<TodoItem> todos(DgsDataFetchingEnvironment dataFetchingEnvironment) throws IOException {
-        List list = dataFetchingEnvironment.getSource();
+        TodoList list = dataFetchingEnvironment.getSource();
         return itemsService.fetchByListId(list.getId()).stream().map(mapper::todoItemToDgsTodoItem).toList();
     }
 
-    @DgsData(parentType = DgsConstants.LIST.TYPE_NAME)
+    @DgsData(parentType = DgsConstants.TODOLIST.TYPE_NAME)
     public int incompleteCount(DgsDataFetchingEnvironment dataFetchingEnvironment) throws IOException {
-        List list = dataFetchingEnvironment.getSource();
+        TodoList list = dataFetchingEnvironment.getSource();
         return itemsService.fetchIncompleteCount(list.getId());
     }
 }

@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import styled from "styled-components";
-import { List } from "../../generated/graphql";
+import { TodoList } from "../../generated/graphql";
 
 export const ListNavigatorView = ({
   lists,
   addList
 }: {
-  lists: List[];
+  lists: TodoList[];
   addList: () => void;
 }) => {
   return (

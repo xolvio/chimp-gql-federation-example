@@ -1,6 +1,6 @@
 package com.example.subgraphtemplatejavadgsshows;
 
-import com.example.subgraphtemplatejavadgsshows.APiContainer;
+import com.example.subgraphtemplatejavadgsshows.ApiContainer;
 import com.example.subgraphtemplatejavadgsshows.todoitems.TodoItemsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,13 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TodoItemsServiceTests {
-    private APiContainer apiContainer;
+    private ApiContainer apiContainer;
     private TodoItemControllerApi todoItemControllerApi;
     private TodoItemsService todoItemsService;
 
     @BeforeEach
     public void setup() {
-        apiContainer = Mockito.mock(APiContainer.class);
+        apiContainer = Mockito.mock(ApiContainer.class);
         todoItemControllerApi = Mockito.mock(TodoItemControllerApi.class);
         Mockito.when(apiContainer.todoItem()).thenReturn(todoItemControllerApi);
         todoItemsService = new TodoItemsService(apiContainer);
@@ -49,7 +49,7 @@ public class TodoItemsServiceTests {
     @Test
     public void testFetchById() throws IOException {
         // Arrange
-        APiContainer apiContainer = Mockito.mock(APiContainer.class);
+        ApiContainer apiContainer = Mockito.mock(ApiContainer.class);
         TodoItemControllerApi todoItemControllerApi = Mockito.mock(TodoItemControllerApi.class);
         Mockito.when(apiContainer.todoItem()).thenReturn(todoItemControllerApi);
         TodoItemsService todoItemsService = new TodoItemsService(apiContainer);
@@ -67,7 +67,7 @@ public class TodoItemsServiceTests {
     @Test
     public void testFetchByListId() throws IOException {
         // Arrange
-        APiContainer apiContainer = Mockito.mock(APiContainer.class);
+        ApiContainer apiContainer = Mockito.mock(ApiContainer.class);
         TodoItemControllerApi todoItemControllerApi = Mockito.mock(TodoItemControllerApi.class);
         Mockito.when(apiContainer.todoItem()).thenReturn(todoItemControllerApi);
         TodoItemsService todoItemsService = new TodoItemsService(apiContainer);
