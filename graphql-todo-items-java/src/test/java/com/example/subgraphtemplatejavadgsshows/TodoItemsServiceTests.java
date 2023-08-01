@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.openapitools.client.apis.TodoItemControllerApi;
+import org.openapitools.client.models.ItemResource;
+import org.openapitools.client.models.RenameResource;
 import org.openapitools.client.models.ToDoItem;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 
 public class TodoItemsServiceTests {
     private ApiContainer apiContainer;
@@ -98,5 +101,75 @@ public class TodoItemsServiceTests {
         // Assert
         assertEquals(2, result);
     }
+
+    @Test
+public void testRemoveItem() throws IOException {
+    // Arrange
+    String itemId = mockUUIDString("1");
+    Mockito.doNothing().when(todoItemControllerApi).delete(UUID.fromString(itemId));
+
+    // Act
+    todoItemsService.removeItem(itemId);
+
+    // Assert
+    Mockito.verify(todoItemControllerApi, Mockito.times(1)).delete(UUID.fromString(itemId));
+}
+
+@Test
+public void testAddTodo() throws IOException {
+    // Arrange
+    String listId = mockUUIDString("1");
+    String text = "Test todo";
+    ToDoItem expectedItem = new ToDoItem(mockUUID("1"), text, mockUUID(listId), false, null);
+    Mockito.when(todoItemControllerApi.createItem(any(ItemResource.class))).thenReturn(expectedItem);
+
+    // Act
+    ToDoItem result = todoItemsService.addTodo(listId, text);
+
+    // Assert
+    assertEquals(expectedItem, result);
+}
+
+@Test
+public void testToggleTodoCheck_Checked() throws IOException {
+    // Arrange
+    String itemId = mockUUIDString("1");
+    ToDoItem checkedItem = new ToDoItem(mockUUID("1"), "Test todo", mockUUID("list1"), true, null);
+    Mockito.when(todoItemControllerApi.markChecked(UUID.fromString(itemId))).thenReturn(checkedItem);
+
+    // Act
+    ToDoItem resultChecked = todoItemsService.toggleTodoCheck(itemId, true);
+
+    // Assert
+    assertEquals(checkedItem, resultChecked);
+}
+
+@Test
+public void testToggleTodoCheck_Unchecked() throws IOException {
+    // Arrange
+    String itemId = mockUUIDString("1");
+    ToDoItem uncheckedItem = new ToDoItem(mockUUID("1"), "Test todo", mockUUID("list1"), false, null);
+    Mockito.when(todoItemControllerApi.markUnchecked(UUID.fromString(itemId))).thenReturn(uncheckedItem);
+
+    // Act
+    ToDoItem resultUnchecked = todoItemsService.toggleTodoCheck(itemId, false);
+
+    // Assert
+    assertEquals(uncheckedItem, resultUnchecked);
+}
+@Test
+public void testRenameTodo() throws IOException {
+    // Arrange
+    String todoId = mockUUIDString("1");
+    String newText = "Renamed todo";
+    ToDoItem expectedItem = new ToDoItem(mockUUID("1"), newText, mockUUID("list1"), false, null);
+    Mockito.when(todoItemControllerApi.rename(any(RenameResource.class))).thenReturn(expectedItem);
+
+    // Act
+    ToDoItem result = todoItemsService.renameTodo(todoId, newText);
+
+    // Assert
+    assertEquals(expectedItem, result);
+}
 
 }
