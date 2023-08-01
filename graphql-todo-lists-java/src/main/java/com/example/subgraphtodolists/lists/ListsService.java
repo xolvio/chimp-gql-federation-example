@@ -36,4 +36,11 @@ public class ListsService {
         RenameResource renameResource = new RenameResource(newName, UUID.fromString(listId));
         return api.rename(renameResource);
     }
+
+    public ToDoList fetchListsById(String id) throws IOException {
+        return this.fetchLists().stream()
+            .filter(it -> it.getId().toString().equals(id))
+            .findFirst()
+            .orElseThrow();
+    }
 }
