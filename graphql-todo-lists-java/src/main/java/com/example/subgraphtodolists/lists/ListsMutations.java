@@ -2,33 +2,31 @@ package com.example.subgraphtodolists.lists;
 
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
-import org.openapitools.client.apis.TodoListControllerApi;
-import org.openapitools.client.models.ListResource;
-import org.openapitools.client.models.RenameResource;
 import org.openapitools.client.models.ToDoList;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @DgsComponent
 public class ListsMutations {
-    private final TodoListControllerApi api = new TodoListControllerApi();
+    private final ListsService listsService;
+
+    public ListsMutations(ListsService listsService) {
+        this.listsService = listsService;
+    }
 
     @DgsMutation
     public String RemoveList(String listId) throws IOException {
-        api.delete(UUID.fromString(listId));
+        listsService.removeList(listId);
         return "List removed successfully";
     }
 
     @DgsMutation
     public ToDoList AddList(String listName) throws IOException {
-        ListResource listResource = new ListResource(listName);
-        return api.createList(listResource);
+        return listsService.addList(listName);
     }
 
     @DgsMutation
     public ToDoList ChangeListName(String listId, String newName) throws IOException {
-        RenameResource renameResource = new RenameResource(newName, UUID.fromString(listId));
-        return api.rename(renameResource);
+        return listsService.changeListName(listId, newName);
     }
 }
