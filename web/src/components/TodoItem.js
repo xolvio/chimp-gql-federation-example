@@ -79,7 +79,17 @@ class TodoItem extends React.Component {
     });
     return (
       <Wrapper className={todoClass} data-testid={todo.text}>
-        <Mutation mutation={toggleTodoCheckMutation}>
+        <Mutation mutation={toggleTodoCheckMutation}
+          update={proxy => {
+            const data = proxy.readQuery({ query: AllListsDocument });
+            const list = data.Lists.find(l => l.id === this.props.listId);
+            if (todo.checked) {
+              list.incompleteCount += 1;
+            } else {
+              list.incompleteCount -= 1;
+            }
+            proxy.writeQuery({ query: AllListsDocument, data });
+          }}>
           {toggleTodo => (
             <label
               className="checkbox"

@@ -3,7 +3,7 @@ import { MutationResolvers } from "~generated/graphql/types";
 export const ToggleTodoCheckMutation: MutationResolvers["ToggleTodoCheck"] = (
   parent,
   { checked, itemId },
-  context
+  context,
 ) => {
   return checked
     ? context.todoItemController.markChecked(itemId)

@@ -1,11 +1,9 @@
 import td from "testdouble";
-import { MutationRemoveListArgs, GqlContext } from "~generated/graphql/types";
-import { RemoveListMutation } from "./RemoveListMutation";
-
-const testRemoveList = (
-  variables: MutationRemoveListArgs,
-  context: GqlContext
-) => RemoveListMutation({}, variables, context, null);
+import {
+  GqlContext,
+  MutationRemoveListArgs,
+  testRemoveList,
+} from "~generated/graphql/helpers/RemoveListMutationSpecWrapper";
 
 test("RemoveList removes the list through the controller", async () => {
   const context = td.object<GqlContext>();

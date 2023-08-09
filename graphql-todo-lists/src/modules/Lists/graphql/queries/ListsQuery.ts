@@ -4,7 +4,7 @@ import { filterLists } from "../../common/filterLists";
 export const ListsQuery: QueryResolvers["Lists"] = async (
   parent,
   args,
-  context
+  context,
 ) => {
   const allLists = await context.todoListsController.getLists();
   return args.filter ? filterLists(allLists, args.filter) : allLists;

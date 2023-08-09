@@ -17,7 +17,7 @@
     "install:todo-items-graph": "cd graphql-todo-items && npm install",
     "install:gateway": "cd graphql-gateway && npm install",
     "install:auth-module": "cd auth-module && npm install",
-    "install:web": "cd web && npm install",
+    "install:web": "cd web && npm install --force",
     "postinstall": "concurrently 'npm:install:*'",
     "type-check:todo-lists-graph": "cd graphql-todo-lists && npm run type-check",
     "type-check:todo-items-graph": "cd graphql-todo-items && npm run type-check",

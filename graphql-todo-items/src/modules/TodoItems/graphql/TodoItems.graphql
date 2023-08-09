@@ -3,10 +3,10 @@ type TodoItem @key(fields: "id") {
   text: String
   checked: Boolean!
   listId: ID!
-  list: List @computed
+  list: TodoList @computed
 }
 
-extend type List @key(fields: "id") {
+extend type TodoList @key(fields: "id") {
   id: ID! @external
   todos: [TodoItem!]! @computed
   incompleteCount: Int! @computed
@@ -14,12 +14,9 @@ extend type List @key(fields: "id") {
 
 extend type Mutation {
   RemoveItem(itemId: ID!): String!
-    @authorized(requires: [ADMIN, REGISTERED_USER])
   AddTodo(listId: ID!, text: String!): TodoItem!
-    @authorized(requires: [ADMIN, REGISTERED_USER])
   ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
   RenameTodo(todoId: ID!, newText: String!): TodoItem!
-    @authorized(requires: [ADMIN, REGISTERED_USER])
 }
 
 extend type Query {

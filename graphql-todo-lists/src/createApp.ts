@@ -1,43 +1,39 @@
-import { ApolloServer } from "apollo-server-express";
-import express from "express";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { json } from "body-parser";
+import cors from "cors";
 import cookieParser from "cookie-parser";
-
-import { appContext } from "./context";
-import { AuthModule } from "../../auth-module/AuthModule";
-import { schema } from "./graphql/schema";
+import express from "express";
+import http from "http";
+import { schema } from "~generated/graphql/schema";
+import { GqlContext, appContext } from "~app/context";
 import { root } from "./root";
 
-export const authModule = new AuthModule(process.env.JWT_SECRET);
+const apollo = new ApolloServer<GqlContext>({
+  schema,
+});
 
-// We are keeping async here because we want to be able to await operations without changing the API of createApp.
-export const createApp = async () => {
+apollo.start().then(async () => {
   const app = express();
-
   app.use([cookieParser()]);
-
-  // FIXES CORS ERROR - LEAVING THIS AND THE LOGIC IN corsOption commented out
-  // so if you need to block other domains, you have an example
-  const whitelist = [
-    "http://localhost:3000",
-    "http://localhost:4000",
-    "http://xolv.io",
-    "https://xolv.io",
-  ];
+  const httpServer = http.createServer(app);
 
   const corsOptions = {
-    origin(origin, callback) {
-      const originIsWhitelisted = whitelist.indexOf(origin) !== -1 || !origin;
-      callback(null, originIsWhitelisted);
-    },
+    origin: "http://localhost:3000",
     credentials: true,
   };
 
-  const apollo = new ApolloServer({
-    schema,
-    context: appContext(root),
+  app.use(
+    "/graphql",
+    cors<cors.CorsRequest>(corsOptions),
+    json(),
+    expressMiddleware(apollo, {
+      context: appContext(root),
+    }),
+  );
+
+  const port = process.env.PORT || 4000;
+  httpServer.listen({ port }, () => {
+    console.log(`🚀 Server ready at http://localhost:${port}/graphql`);
   });
-
-  apollo.applyMiddleware({ app, cors: corsOptions });
-
-  return { app };
-};
+});

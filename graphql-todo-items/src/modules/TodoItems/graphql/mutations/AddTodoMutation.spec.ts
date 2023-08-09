@@ -17,7 +17,7 @@ test("AddTodo", async () => {
   };
   const todoItemInput = { listId: "listId", text: "text" };
   td.when(context.todoItemController.createItem(todoItemInput)).thenResolve(
-    todoItem
+    todoItem,
   );
 
   const variables: MutationAddTodoArgs = todoItemInput;

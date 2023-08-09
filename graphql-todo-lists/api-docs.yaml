@@ -1,0 +1,150 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: "http://localhost:8091"
+  description: Generated server url
+paths:
+  /api/item:
+    delete:
+      tags:
+      - todo-item-controller
+      operationId: delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              format: uuid
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/item/rename:
+    post:
+      tags:
+      - todo-item-controller
+      operationId: rename
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RenameResource"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToDoItem"
+  /api/items:
+    get:
+      tags:
+      - todo-item-controller
+      operationId: getItems
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ToDoItem"
+    post:
+      tags:
+      - todo-item-controller
+      operationId: createItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemResource"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToDoItem"
+  /api/item/check:
+    post:
+      tags:
+      - todo-item-controller
+      operationId: markChecked
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              format: uuid
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToDoItem"
+  /api/item/uncheck:
+    post:
+      tags:
+      - todo-item-controller
+      operationId: markUnchecked
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              format: uuid
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToDoItem"
+components:
+  schemas:
+    RenameResource:
+      type: object
+      properties:
+        text:
+          type: string
+        id:
+          type: string
+          format: uuid
+    ToDoItem:
+      type: object
+      required:
+        - id
+        - text
+        - listId
+        - checked
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        text:
+          type: string
+        listId:
+          type: string
+          format: uuid
+        checked:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+    ItemResource:
+      type: object
+      properties:
+        text:
+          type: string
+        listId:
+          type: string
+          format: uuid

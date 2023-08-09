@@ -1,4 +1,4 @@
-type List @key(fields: "id") {
+type TodoList @key(fields: "id") {
   id: ID!
   name: String!
 }
@@ -7,39 +7,13 @@ input ListFilterQueryInput {
   partialName: String
 }
 
-input PaginationInput {
-  first: Int
-  after: ID
-  last: Int
-  before: ID
-}
-
-type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: ID!
-  endCursor: ID!
-}
-type ListEdge {
-  cursor: ID!
-  node: List!
-}
-type ListConnection {
-  edges: [ListEdge]!
-  pageInfo: PageInfo!
-}
 
 extend type Query {
-  Lists(filter: ListFilterQueryInput): [List!]!
-  PagedLists(
-    paginationArgs: PaginationInput!
-    filter: ListFilterQueryInput
-  ): ListConnection!
+  Lists(filter: ListFilterQueryInput): [TodoList!]!
 }
 
 extend type Mutation {
-  RemoveList(listId: ID!): String! @authorized(requires: [ADMIN])
-  AddList(listName: String!): List!
-    @authorized(requires: [ADMIN, REGISTERED_USER])
-  ChangeListName(listId: ID!, newName: String!): List!
+  RemoveList(listId: ID!): String!
+  AddList(listName: String!): TodoList!
+  ChangeListName(listId: ID!, newName: String!): TodoList!
 }

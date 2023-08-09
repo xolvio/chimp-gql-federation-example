@@ -5,7 +5,7 @@ import { GqlContext } from "../../../../context";
 
 const testRenameTodo = (
   variables: MutationRenameTodoArgs,
-  context: GqlContext
+  context: GqlContext,
 ) => RenameTodoMutation({}, variables, context, null);
 
 test("RenameTodo", async () => {
@@ -20,7 +20,7 @@ test("RenameTodo", async () => {
   };
 
   td.when(
-    context.todoItemController.rename({ id: SOME_ID, text: NEW_TEXT })
+    context.todoItemController.rename({ id: SOME_ID, text: NEW_TEXT }),
   ).thenResolve(finalItem);
 
   const variables: MutationRenameTodoArgs = {
