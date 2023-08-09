@@ -1,10 +1,10 @@
 import td from "testdouble";
-import { QueryListsArgs, GqlContext } from "~generated/graphql/types";
 import { ToDoList } from "~generated/external-apis";
-import { ListsQuery } from "./ListsQuery";
-
-const testLists = (variables: QueryListsArgs, context: GqlContext) =>
-  ListsQuery({}, variables, context, null);
+import {
+  GqlContext,
+  QueryListsArgs,
+  testLists,
+} from "~generated/graphql/helpers/ListsQuerySpecWrapper";
 
 test("Lists", async () => {
   const context = td.object<GqlContext>();
@@ -12,7 +12,7 @@ test("Lists", async () => {
   const lists: Partial<ToDoList>[] = [{ id: "id", name: "name" }];
 
   td.when(context.todoListsController.getLists()).thenResolve(
-    lists as ToDoList[]
+    lists as ToDoList[],
   );
 
   const variables: QueryListsArgs = {};

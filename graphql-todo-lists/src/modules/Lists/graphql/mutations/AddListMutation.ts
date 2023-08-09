@@ -3,5 +3,5 @@ import { MutationResolvers } from "~generated/graphql/types";
 export const AddListMutation: MutationResolvers["AddList"] = (
   parent,
   { listName },
-  { todoListsController }
+  { todoListsController },
 ) => todoListsController.createList({ text: listName });

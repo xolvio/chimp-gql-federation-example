@@ -5,7 +5,7 @@ import { GqlContext } from "../../../../context";
 
 const testToggleTodoCheck = (
   variables: MutationToggleTodoCheckArgs,
-  context: GqlContext
+  context: GqlContext,
 ) => ToggleTodoCheckMutation({}, variables, context, null);
 
 test("marks todo as checked", async () => {

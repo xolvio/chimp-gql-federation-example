@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import styled from "styled-components";
-import { List } from "../../generated/graphql";
+import { TodoList } from "../../generated/graphql";
 
 export const ListNavigatorView = ({
   lists,
   addList
 }: {
-  lists: List[];
+  lists: TodoList[];
   addList: () => void;
 }) => {
   return (
@@ -24,7 +24,7 @@ export const ListNavigatorView = ({
           activeClassName="active"
         >
           {list.todos.length ? (
-            <span className="count-list">{list.todos.length}</span>
+            <span className="count-list">{list.incompleteCount}</span>
           ) : null}
           {list.name}
         </NavLinkStyled>

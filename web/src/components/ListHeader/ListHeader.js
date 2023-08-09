@@ -145,10 +145,11 @@ export default class ListHeader extends React.Component {
             variables={{ listId: list.id }}
             update={(cache, {data: {RemoveList}}) => {
               const {Lists} = cache.readQuery({ query: AllListsDocument })
-
+              console.log("RemoveLsist", RemoveList)
+              console.log("Lists", Lists)
               cache.writeQuery({
                 query: AllListsDocument,
-                data: { Lists: Lists.filter(l => l.id !== RemoveList) },
+                data: { Lists: Lists.filter(l => l.id !== list.id) },
               });
             }}
           >
@@ -222,9 +223,11 @@ export default class ListHeader extends React.Component {
           })}
           update={(proxy, { data: { AddTodo } }) => {
             const data = proxy.readQuery({ query: AllListsDocument });
-            data.Lists.find(l => l.id === this.props.list.id).todos.push(
+            const list = data.Lists.find(l => l.id === this.props.list.id);
+            list.todos.push(
               AddTodo
             );
+            list.incompleteCount++;
             proxy.writeQuery({ query: AllListsDocument, data });
           }}
         >

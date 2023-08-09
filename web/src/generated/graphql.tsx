@@ -22,14 +22,6 @@ export type AdditionalEntityFields = {
   type?: Maybe<Scalars['String']>;
 };
 
-export type List = {
-  __typename?: 'List';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  todos: Array<TodoItem>;
-  incompleteCount: Scalars['Int'];
-};
-
 export type ListConnection = {
   __typename?: 'ListConnection';
   edges: Array<Maybe<ListEdge>>;
@@ -39,7 +31,7 @@ export type ListConnection = {
 export type ListEdge = {
   __typename?: 'ListEdge';
   cursor: Scalars['ID'];
-  node: List;
+  node: TodoList;
 };
 
 export type ListFilterQueryInput = {
@@ -53,8 +45,8 @@ export type Mutation = {
   ToggleTodoCheck: TodoItem;
   RenameTodo: TodoItem;
   RemoveList: Scalars['String'];
-  AddList: List;
-  ChangeListName: List;
+  AddList: TodoList;
+  ChangeListName: TodoList;
 };
 
 
@@ -114,7 +106,7 @@ export type PaginationInput = {
 export type Query = {
   __typename?: 'Query';
   Todos: Array<TodoItem>;
-  Lists: Array<List>;
+  Lists: Array<TodoList>;
   PagedLists: ListConnection;
 };
 
@@ -140,7 +132,15 @@ export type TodoItem = {
   text?: Maybe<Scalars['String']>;
   checked: Scalars['Boolean'];
   listId: Scalars['ID'];
-  list?: Maybe<List>;
+  list?: Maybe<TodoList>;
+};
+
+export type TodoList = {
+  __typename?: 'TodoList';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  todos: Array<TodoItem>;
+  incompleteCount: Scalars['Int'];
 };
 
 export type AddListMutationVariables = {
@@ -151,8 +151,8 @@ export type AddListMutationVariables = {
 export type AddListMutation = (
   { __typename?: 'Mutation' }
   & { AddList: (
-    { __typename?: 'List' }
-    & Pick<List, 'id' | 'name' | 'incompleteCount'>
+    { __typename?: 'TodoList' }
+    & Pick<TodoList, 'id' | 'name' | 'incompleteCount'>
     & { todos: Array<(
       { __typename?: 'TodoItem' }
       & Pick<TodoItem, 'id' | 'text' | 'checked'>
@@ -176,8 +176,8 @@ export type AllListsQueryVariables = {};
 export type AllListsQuery = (
   { __typename?: 'Query' }
   & { Lists: Array<(
-    { __typename?: 'List' }
-    & Pick<List, 'id' | 'name' | 'incompleteCount'>
+    { __typename?: 'TodoList' }
+    & Pick<TodoList, 'id' | 'name' | 'incompleteCount'>
     & { todos: Array<(
       { __typename?: 'TodoItem' }
       & Pick<TodoItem, 'id' | 'text' | 'checked'>

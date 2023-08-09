@@ -1,6 +1,6 @@
 import React from "react";
 import td from "testdouble";
-import {List, useAllListsQuery} from "../../generated/graphql";
+import {TodoList, useAllListsQuery} from "../../generated/graphql";
 import { renderWithGraphQL } from "../../testHelpers/renderWithGraphQL";
 import { ListNavigatorData } from "./ListNavigatorData";
 import { ListNavigatorView } from "./ListNavigatorView";
@@ -12,7 +12,7 @@ test('Adding new list updates the Lists cache', async () => {
     if (lists.loading || !lists.data) {
       return <></>;
     }
-    return <ListNavigatorData lists={lists.data.Lists as List[]} View={ListNavigatorView} />;
+    return <ListNavigatorData lists={lists.data.Lists as TodoList[]} View={ListNavigatorView} />;
   };
 
   const ListsQueryMock = td.func();

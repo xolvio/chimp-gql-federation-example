@@ -1,37 +1,3 @@
-directive @adminOnly on OBJECT | FIELD_DEFINITION
-
-directive @authorized(requires: [Roles]) on OBJECT | FIELD_DEFINITION
-
-enum Roles {
-  ADMIN
-  REGISTERED_USER
-}
-
-type TodoItem @key(fields: "id") {
-  id: ID!
-  text: String
-  checked: Boolean!
-  listId: ID!
-  list: List @computed
-}
-
-extend type List @key(fields: "id") {
-  id: ID! @external
-  todos: [TodoItem!]! @computed
-  incompleteCount: Int! @computed
-}
-
-type Mutation {
-  RemoveItem(itemId: ID!): String! @authorized(requires: [ADMIN, REGISTERED_USER])
-  AddTodo(listId: ID!, text: String!): TodoItem! @authorized(requires: [ADMIN, REGISTERED_USER])
-  ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
-  RenameTodo(todoId: ID!, newText: String!): TodoItem! @authorized(requires: [ADMIN, REGISTERED_USER])
-}
-
-type Query {
-  Todos: [TodoItem!]!
-}
-
 directive @entity(embedded: Boolean) on OBJECT
 
 directive @chimp(embedded: Boolean) on OBJECT
@@ -50,6 +16,33 @@ directive @map(path: String!) on FIELD_DEFINITION
 
 directive @union(discriminatorField: String) on UNION
 
+directive @predefined on SCALAR
+
+type TodoItem @key(fields: "id") {
+  id: ID!
+  text: String
+  checked: Boolean!
+  listId: ID!
+  list: TodoList @computed
+}
+
+extend type TodoList @key(fields: "id") {
+  id: ID! @external
+  todos: [TodoItem!]! @computed
+  incompleteCount: Int! @computed
+}
+
+type Mutation {
+  RemoveItem(itemId: ID!): String!
+  AddTodo(listId: ID!, text: String!): TodoItem!
+  ToggleTodoCheck(itemId: ID!, checked: Boolean!): TodoItem!
+  RenameTodo(todoId: ID!, newText: String!): TodoItem!
+}
+
+type Query {
+  Todos: [TodoItem!]!
+}
+
 input AdditionalEntityFields {
   path: String
   type: String
@@ -59,4 +52,3 @@ schema {
   query: Query
   mutation: Mutation
 }
-

@@ -8,7 +8,7 @@ type ParentType = Parameters<typeof TodoItem__resolveReference>[0];
 
 const testTodoItem__resolveReference = (
   parent: ParentType,
-  context: GqlContext
+  context: GqlContext,
 ) => TodoItem__resolveReference(parent, context, null);
 
 test("TodoItem__resolveReference", async () => {

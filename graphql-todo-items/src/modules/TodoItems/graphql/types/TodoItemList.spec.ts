@@ -5,7 +5,7 @@ import { TodoItemList } from "./TodoItemList";
 
 const testTodoItemList = (
   parent: ResolversParentTypes["TodoItem"],
-  context: GqlContext
+  context: GqlContext,
 ) => TodoItemList(parent, {}, context, null);
 
 test("TodoItemList", async () => {

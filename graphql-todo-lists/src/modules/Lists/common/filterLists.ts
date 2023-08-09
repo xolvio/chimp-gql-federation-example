@@ -3,7 +3,7 @@ import { ListFilterQueryInput } from "~generated/graphql/types";
 
 export function filterLists(
   toDoLists: ToDoList[],
-  listFilterParams: ListFilterQueryInput
+  listFilterParams: ListFilterQueryInput,
 ): ToDoList[] {
   let result = toDoLists;
   if (listFilterParams.partialName) {

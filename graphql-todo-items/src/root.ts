@@ -1,7 +1,7 @@
-import { TodoItemControllerCacheable } from "./controllers/TodoItemController";
+import { TodoItemControllerApi } from "~generated/external-apis";
 
 export const root = {
-  todoItemController: new TodoItemControllerCacheable(),
+  todoItemController: new TodoItemControllerApi(),
 };
 
 export type RootInterface = typeof root;

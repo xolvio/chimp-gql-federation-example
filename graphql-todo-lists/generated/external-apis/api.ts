@@ -1,3 +1,4 @@
+// @ts-nocheck
 /// <reference path="./custom.d.ts" />
 // tslint:disable
 /**
@@ -13,7 +14,7 @@
  */
 
 import * as url from "url";
-import portableFetch from "portable-fetch";
+import * as portableFetch from "node-fetch";
 import { Configuration } from "./configuration";
 
 const BASE_PATH = "http://localhost:8090".replace(/\/+$/, "");
@@ -59,7 +60,7 @@ export class BaseAPI {
   constructor(
     configuration?: Configuration,
     protected basePath: string = BASE_PATH,
-    protected fetch: FetchAPI = portableFetch
+    protected fetch: FetchAPI = portableFetch,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -76,7 +77,10 @@ export class BaseAPI {
  */
 export class RequiredError extends Error {
   name: "RequiredError";
-  constructor(public field: string, msg?: string) {
+  constructor(
+    public field: string,
+    msg?: string,
+  ) {
     super(msg);
   }
 }
@@ -92,7 +96,7 @@ export interface ListResource {
    * @type {string}
    * @memberof ListResource
    */
-  text?: string;
+  text: string;
 }
 /**
  *
@@ -105,13 +109,13 @@ export interface RenameResource {
    * @type {string}
    * @memberof RenameResource
    */
-  text?: string;
+  text: string;
   /**
    *
    * @type {string}
    * @memberof RenameResource
    */
-  id?: string;
+  id: string;
 }
 /**
  *
@@ -143,7 +147,7 @@ export interface ToDoList {
  * @export
  */
 export const TodoListControllerApiFetchParamCreator = function (
-  configuration?: Configuration
+  configuration?: Configuration,
 ) {
   return {
     /**
@@ -157,14 +161,14 @@ export const TodoListControllerApiFetchParamCreator = function (
       if (body === null || body === undefined) {
         throw new RequiredError(
           "body",
-          "Required parameter body was null or undefined when calling _delete."
+          "Required parameter body was null or undefined when calling _delete.",
         );
       }
       const localVarPath = `/api/list`;
       const localVarUrlObj = url.parse(localVarPath, true);
       const localVarRequestOptions = Object.assign(
         { method: "DELETE" },
-        options
+        options,
       );
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -175,14 +179,14 @@ export const TodoListControllerApiFetchParamCreator = function (
         {},
         localVarUrlObj.query,
         localVarQueryParameter,
-        options.query
+        options.query,
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
-        options.headers
+        options.headers,
       );
       const needsSerialization =
         <any>"string" !== "string" ||
@@ -207,7 +211,7 @@ export const TodoListControllerApiFetchParamCreator = function (
       if (body === null || body === undefined) {
         throw new RequiredError(
           "body",
-          "Required parameter body was null or undefined when calling createList."
+          "Required parameter body was null or undefined when calling createList.",
         );
       }
       const localVarPath = `/api/lists`;
@@ -222,14 +226,14 @@ export const TodoListControllerApiFetchParamCreator = function (
         {},
         localVarUrlObj.query,
         localVarQueryParameter,
-        options.query
+        options.query,
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
-        options.headers
+        options.headers,
       );
       const needsSerialization =
         <any>"ListResource" !== "string" ||
@@ -259,14 +263,14 @@ export const TodoListControllerApiFetchParamCreator = function (
         {},
         localVarUrlObj.query,
         localVarQueryParameter,
-        options.query
+        options.query,
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
-        options.headers
+        options.headers,
       );
 
       return {
@@ -285,7 +289,7 @@ export const TodoListControllerApiFetchParamCreator = function (
       if (body === null || body === undefined) {
         throw new RequiredError(
           "body",
-          "Required parameter body was null or undefined when calling rename."
+          "Required parameter body was null or undefined when calling rename.",
         );
       }
       const localVarPath = `/api/list/rename`;
@@ -300,14 +304,14 @@ export const TodoListControllerApiFetchParamCreator = function (
         {},
         localVarUrlObj.query,
         localVarQueryParameter,
-        options.query
+        options.query,
       );
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
       localVarRequestOptions.headers = Object.assign(
         {},
         localVarHeaderParameter,
-        options.headers
+        options.headers,
       );
       const needsSerialization =
         <any>"RenameResource" !== "string" ||
@@ -329,7 +333,7 @@ export const TodoListControllerApiFetchParamCreator = function (
  * @export
  */
 export const TodoListControllerApiFp = function (
-  configuration?: Configuration
+  configuration?: Configuration,
 ) {
   return {
     /**
@@ -340,18 +344,18 @@ export const TodoListControllerApiFp = function (
      */
     _delete(
       body: string,
-      options?: any
+      options?: any,
     ): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
       const localVarFetchArgs = TodoListControllerApiFetchParamCreator(
-        configuration
+        configuration,
       )._delete(body, options);
       return (
         fetch: FetchAPI = portableFetch,
-        basePath: string = BASE_PATH
+        basePath: string = BASE_PATH,
       ) => {
         return fetch(
           basePath + localVarFetchArgs.url,
-          localVarFetchArgs.options
+          localVarFetchArgs.options,
         ).then((response) => {
           if (response.status >= 200 && response.status < 300) {
             return response;
@@ -369,18 +373,18 @@ export const TodoListControllerApiFp = function (
      */
     createList(
       body: ListResource,
-      options?: any
+      options?: any,
     ): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoList> {
       const localVarFetchArgs = TodoListControllerApiFetchParamCreator(
-        configuration
+        configuration,
       ).createList(body, options);
       return (
         fetch: FetchAPI = portableFetch,
-        basePath: string = BASE_PATH
+        basePath: string = BASE_PATH,
       ) => {
         return fetch(
           basePath + localVarFetchArgs.url,
-          localVarFetchArgs.options
+          localVarFetchArgs.options,
         ).then((response) => {
           if (response.status >= 200 && response.status < 300) {
             return response.json();
@@ -396,18 +400,17 @@ export const TodoListControllerApiFp = function (
      * @throws {RequiredError}
      */
     getLists(
-      options?: any
+      options?: any,
     ): (fetch?: FetchAPI, basePath?: string) => Promise<Array<ToDoList>> {
-      const localVarFetchArgs = TodoListControllerApiFetchParamCreator(
-        configuration
-      ).getLists(options);
+      const localVarFetchArgs =
+        TodoListControllerApiFetchParamCreator(configuration).getLists(options);
       return (
         fetch: FetchAPI = portableFetch,
-        basePath: string = BASE_PATH
+        basePath: string = BASE_PATH,
       ) => {
         return fetch(
           basePath + localVarFetchArgs.url,
-          localVarFetchArgs.options
+          localVarFetchArgs.options,
         ).then((response) => {
           if (response.status >= 200 && response.status < 300) {
             return response.json();
@@ -425,18 +428,18 @@ export const TodoListControllerApiFp = function (
      */
     rename(
       body: RenameResource,
-      options?: any
+      options?: any,
     ): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoList> {
       const localVarFetchArgs = TodoListControllerApiFetchParamCreator(
-        configuration
+        configuration,
       ).rename(body, options);
       return (
         fetch: FetchAPI = portableFetch,
-        basePath: string = BASE_PATH
+        basePath: string = BASE_PATH,
       ) => {
         return fetch(
           basePath + localVarFetchArgs.url,
-          localVarFetchArgs.options
+          localVarFetchArgs.options,
         ).then((response) => {
           if (response.status >= 200 && response.status < 300) {
             return response.json();
@@ -456,7 +459,7 @@ export const TodoListControllerApiFp = function (
 export const TodoListControllerApiFactory = function (
   configuration?: Configuration,
   fetch?: FetchAPI,
-  basePath?: string
+  basePath?: string,
 ) {
   return {
     /**
@@ -468,7 +471,7 @@ export const TodoListControllerApiFactory = function (
     _delete(body: string, options?: any) {
       return TodoListControllerApiFp(configuration)._delete(body, options)(
         fetch,
-        basePath
+        basePath,
       );
     },
     /**
@@ -480,7 +483,7 @@ export const TodoListControllerApiFactory = function (
     createList(body: ListResource, options?: any) {
       return TodoListControllerApiFp(configuration).createList(body, options)(
         fetch,
-        basePath
+        basePath,
       );
     },
     /**
@@ -491,7 +494,7 @@ export const TodoListControllerApiFactory = function (
     getLists(options?: any) {
       return TodoListControllerApiFp(configuration).getLists(options)(
         fetch,
-        basePath
+        basePath,
       );
     },
     /**
@@ -503,7 +506,7 @@ export const TodoListControllerApiFactory = function (
     rename(body: RenameResource, options?: any) {
       return TodoListControllerApiFp(configuration).rename(body, options)(
         fetch,
-        basePath
+        basePath,
       );
     },
   };
@@ -526,7 +529,7 @@ export class TodoListControllerApi extends BaseAPI {
   public _delete(body: string, options?: any) {
     return TodoListControllerApiFp(this.configuration)._delete(body, options)(
       this.fetch,
-      this.basePath
+      this.basePath,
     );
   }
 
@@ -540,7 +543,7 @@ export class TodoListControllerApi extends BaseAPI {
   public createList(body: ListResource, options?: any) {
     return TodoListControllerApiFp(this.configuration).createList(
       body,
-      options
+      options,
     )(this.fetch, this.basePath);
   }
 
@@ -553,7 +556,7 @@ export class TodoListControllerApi extends BaseAPI {
   public getLists(options?: any) {
     return TodoListControllerApiFp(this.configuration).getLists(options)(
       this.fetch,
-      this.basePath
+      this.basePath,
     );
   }
 
@@ -567,7 +570,7 @@ export class TodoListControllerApi extends BaseAPI {
   public rename(body: RenameResource, options?: any) {
     return TodoListControllerApiFp(this.configuration).rename(body, options)(
       this.fetch,
-      this.basePath
+      this.basePath,
     );
   }
 }

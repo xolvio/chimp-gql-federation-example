@@ -5,7 +5,7 @@ import { GqlContext } from "../../../../context";
 
 const testRemoveItem = (
   variables: MutationRemoveItemArgs,
-  context: GqlContext
+  context: GqlContext,
 ) => RemoveItemMutation({}, variables, context, null);
 
 test("passes the id to the repository and returns the id", async () => {

@@ -1,14 +1,9 @@
 import td from "testdouble";
 import {
-  MutationChangeListNameArgs,
   GqlContext,
-} from "~generated/graphql/types";
-import { ChangeListNameMutation } from "./ChangeListNameMutation";
-
-const testChangeListName = (
-  variables: MutationChangeListNameArgs,
-  context: GqlContext
-) => ChangeListNameMutation({}, variables, context, null);
+  MutationChangeListNameArgs,
+  testChangeListName,
+} from "~generated/graphql/helpers/ChangeListNameMutationSpecWrapper";
 
 test("ChangeListName", async () => {
   const context = td.object<GqlContext>();
@@ -23,6 +18,6 @@ test("ChangeListName", async () => {
     context.todoListsController.rename({
       text: variables.newName,
       id: variables.listId,
-    })
+    }),
   );
 });

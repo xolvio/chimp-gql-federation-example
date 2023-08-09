@@ -1,9 +1,9 @@
 import td from "testdouble";
-import { MutationAddListArgs, GqlContext } from "~generated/graphql/types";
-import { AddListMutation } from "./AddListMutation";
-
-const testAddList = (variables: MutationAddListArgs, context: GqlContext) =>
-  AddListMutation({}, variables, context, null);
+import {
+  GqlContext,
+  MutationAddListArgs,
+  testAddList,
+} from "~generated/graphql/helpers/AddListMutationSpecWrapper";
 
 test("AddList inserts the list to the repository", async () => {
   const context = td.object<GqlContext>();

@@ -1,11 +1,12 @@
 import td from "testdouble";
-
-import { ResolversParentTypes } from "~generated/graphql/types";
+import {
+  GqlContext,
+  ParentType,
+  testTodoListTodos,
+} from "~generated/graphql/helpers/TodoListTodosSpecWrapper";
 import { ToDoItem } from "~generated/external-apis";
-import { testListTodos } from "~generated/graphql/helpers/ListTodosSpecWrapper";
-import { GqlContext } from "../../../../context";
 
-test("ListTodos", async () => {
+test("TodoListTodos", async () => {
   const context = td.object<GqlContext>();
 
   const todoItems = [
@@ -16,9 +17,9 @@ test("ListTodos", async () => {
 
   td.when(context.todoItemController.getItems()).thenResolve(todoItems);
 
-  const parent: ResolversParentTypes["List"] = { id: "matching-id" };
+  const parent: ParentType = { __typename: "TodoList", id: "matching-id" };
 
-  const result = await testListTodos(parent, context);
+  const result = await testTodoListTodos(parent, context);
 
   expect(result).toEqual([todoItems[1]]);
 });

@@ -4,7 +4,7 @@
 import React from "react";
 import {
   AllListsDocument,
-  List,
+  TodoList,
   useAddListMutation,
 } from "../../generated/graphql";
 import { ListNavigatorView } from "./ListNavigatorView";
@@ -13,7 +13,7 @@ export function ListNavigatorData({
   lists,
   View,
 }: {
-  lists: List[];
+  lists: TodoList[];
   View: typeof ListNavigatorView;
 }) {
   const [addList] = useAddListMutation({
@@ -21,7 +21,7 @@ export function ListNavigatorData({
       listName: "Empty List",
     },
     update: (cache, {data: {AddList}}) => {
-      const {Lists} = cache.readQuery({ query: AllListsDocument }) as {Lists: List[]};
+      const {Lists} = cache.readQuery({ query: AllListsDocument }) as {Lists: TodoList[]};
 
       cache.writeQuery({
         query: AllListsDocument,
