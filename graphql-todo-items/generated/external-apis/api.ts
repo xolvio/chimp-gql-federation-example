@@ -17,7 +17,7 @@ import * as url from "url";
 import * as portableFetch from "node-fetch";
 import { Configuration } from "./configuration";
 
-const BASE_PATH = "http://localhost:8090".replace(/\/+$/, "");
+const BASE_PATH = "http://localhost:8091".replace(/\/+$/, "");
 
 /**
  *
@@ -81,15 +81,21 @@ export class RequiredError extends Error {
 /**
  * 
  * @export
- * @interface ListResource
+ * @interface ItemResource
  */
-export interface ListResource {
+export interface ItemResource {
     /**
      * 
      * @type {string}
-     * @memberof ListResource
+     * @memberof ItemResource
      */
     text: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemResource
+     */
+    listId: string;
 }
 /**
  * 
@@ -113,33 +119,45 @@ export interface RenameResource {
 /**
  * 
  * @export
- * @interface ToDoList
+ * @interface ToDoItem
  */
-export interface ToDoList {
+export interface ToDoItem {
     /**
      * 
      * @type {string}
-     * @memberof ToDoList
+     * @memberof ToDoItem
      */
     id: string;
     /**
      * 
      * @type {string}
-     * @memberof ToDoList
+     * @memberof ToDoItem
      */
-    name: string;
+    text: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ToDoItem
+     */
+    listId: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ToDoItem
+     */
+    checked: boolean;
     /**
      * 
      * @type {Date}
-     * @memberof ToDoList
+     * @memberof ToDoItem
      */
     createdAt: Date;
 }
 /**
- * TodoListControllerApi - fetch parameter creator
+ * TodoItemControllerApi - fetch parameter creator
  * @export
  */
-export const TodoListControllerApiFetchParamCreator = function (configuration?: Configuration) {
+export const TodoItemControllerApiFetchParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -152,7 +170,7 @@ export const TodoListControllerApiFetchParamCreator = function (configuration?: 
             if (body === null || body === undefined) {
                 throw new RequiredError('body','Required parameter body was null or undefined when calling _delete.');
             }
-            const localVarPath = `/api/list`;
+            const localVarPath = `/api/item`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -174,16 +192,16 @@ export const TodoListControllerApiFetchParamCreator = function (configuration?: 
         },
         /**
          * 
-         * @param {ListResource} body 
+         * @param {ItemResource} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createList(body: ListResource, options: any = {}): FetchArgs {
+        createItem(body: ItemResource, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling createList.');
+                throw new RequiredError('body','Required parameter body was null or undefined when calling createItem.');
             }
-            const localVarPath = `/api/lists`;
+            const localVarPath = `/api/items`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -195,7 +213,7 @@ export const TodoListControllerApiFetchParamCreator = function (configuration?: 
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"ListResource" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (<any>"ItemResource" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
@@ -208,8 +226,8 @@ export const TodoListControllerApiFetchParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLists(options: any = {}): FetchArgs {
-            const localVarPath = `/api/lists`;
+        getItems(options: any = {}): FetchArgs {
+            const localVarPath = `/api/items`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -227,6 +245,68 @@ export const TodoListControllerApiFetchParamCreator = function (configuration?: 
         },
         /**
          * 
+         * @param {string} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        markChecked(body: string, options: any = {}): FetchArgs {
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling markChecked.');
+            }
+            const localVarPath = `/api/item/check`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (<any>"string" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        markUnchecked(body: string, options: any = {}): FetchArgs {
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling markUnchecked.');
+            }
+            const localVarPath = `/api/item/uncheck`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (<any>"string" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {RenameResource} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -236,7 +316,7 @@ export const TodoListControllerApiFetchParamCreator = function (configuration?: 
             if (body === null || body === undefined) {
                 throw new RequiredError('body','Required parameter body was null or undefined when calling rename.');
             }
-            const localVarPath = `/api/list/rename`;
+            const localVarPath = `/api/item/rename`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -260,10 +340,10 @@ export const TodoListControllerApiFetchParamCreator = function (configuration?: 
 };
 
 /**
- * TodoListControllerApi - functional programming interface
+ * TodoItemControllerApi - functional programming interface
  * @export
  */
-export const TodoListControllerApiFp = function(configuration?: Configuration) {
+export const TodoItemControllerApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
@@ -272,7 +352,7 @@ export const TodoListControllerApiFp = function(configuration?: Configuration) {
          * @throws {RequiredError}
          */
         _delete(body: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
-            const localVarFetchArgs = TodoListControllerApiFetchParamCreator(configuration)._delete(body, options);
+            const localVarFetchArgs = TodoItemControllerApiFetchParamCreator(configuration)._delete(body, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -285,12 +365,12 @@ export const TodoListControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {ListResource} body 
+         * @param {ItemResource} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createList(body: ListResource, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoList> {
-            const localVarFetchArgs = TodoListControllerApiFetchParamCreator(configuration).createList(body, options);
+        createItem(body: ItemResource, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoItem> {
+            const localVarFetchArgs = TodoItemControllerApiFetchParamCreator(configuration).createItem(body, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -306,8 +386,44 @@ export const TodoListControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLists(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<ToDoList>> {
-            const localVarFetchArgs = TodoListControllerApiFetchParamCreator(configuration).getLists(options);
+        getItems(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<ToDoItem>> {
+            const localVarFetchArgs = TodoItemControllerApiFetchParamCreator(configuration).getItems(options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * 
+         * @param {string} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        markChecked(body: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoItem> {
+            const localVarFetchArgs = TodoItemControllerApiFetchParamCreator(configuration).markChecked(body, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * 
+         * @param {string} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        markUnchecked(body: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoItem> {
+            const localVarFetchArgs = TodoItemControllerApiFetchParamCreator(configuration).markUnchecked(body, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -324,8 +440,8 @@ export const TodoListControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        rename(body: RenameResource, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoList> {
-            const localVarFetchArgs = TodoListControllerApiFetchParamCreator(configuration).rename(body, options);
+        rename(body: RenameResource, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ToDoItem> {
+            const localVarFetchArgs = TodoItemControllerApiFetchParamCreator(configuration).rename(body, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -340,10 +456,10 @@ export const TodoListControllerApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * TodoListControllerApi - factory interface
+ * TodoItemControllerApi - factory interface
  * @export
  */
-export const TodoListControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const TodoItemControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
     return {
         /**
          * 
@@ -352,24 +468,42 @@ export const TodoListControllerApiFactory = function (configuration?: Configurat
          * @throws {RequiredError}
          */
         _delete(body: string, options?: any) {
-            return TodoListControllerApiFp(configuration)._delete(body, options)(fetch, basePath);
+            return TodoItemControllerApiFp(configuration)._delete(body, options)(fetch, basePath);
         },
         /**
          * 
-         * @param {ListResource} body 
+         * @param {ItemResource} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createList(body: ListResource, options?: any) {
-            return TodoListControllerApiFp(configuration).createList(body, options)(fetch, basePath);
+        createItem(body: ItemResource, options?: any) {
+            return TodoItemControllerApiFp(configuration).createItem(body, options)(fetch, basePath);
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLists(options?: any) {
-            return TodoListControllerApiFp(configuration).getLists(options)(fetch, basePath);
+        getItems(options?: any) {
+            return TodoItemControllerApiFp(configuration).getItems(options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @param {string} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        markChecked(body: string, options?: any) {
+            return TodoItemControllerApiFp(configuration).markChecked(body, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @param {string} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        markUnchecked(body: string, options?: any) {
+            return TodoItemControllerApiFp(configuration).markUnchecked(body, options)(fetch, basePath);
         },
         /**
          * 
@@ -378,48 +512,70 @@ export const TodoListControllerApiFactory = function (configuration?: Configurat
          * @throws {RequiredError}
          */
         rename(body: RenameResource, options?: any) {
-            return TodoListControllerApiFp(configuration).rename(body, options)(fetch, basePath);
+            return TodoItemControllerApiFp(configuration).rename(body, options)(fetch, basePath);
         },
     };
 };
 
 /**
- * TodoListControllerApi - object-oriented interface
+ * TodoItemControllerApi - object-oriented interface
  * @export
- * @class TodoListControllerApi
+ * @class TodoItemControllerApi
  * @extends {BaseAPI}
  */
-export class TodoListControllerApi extends BaseAPI {
+export class TodoItemControllerApi extends BaseAPI {
     /**
      * 
      * @param {string} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TodoListControllerApi
+     * @memberof TodoItemControllerApi
      */
     public _delete(body: string, options?: any) {
-        return TodoListControllerApiFp(this.configuration)._delete(body, options)(this.fetch, this.basePath);
+        return TodoItemControllerApiFp(this.configuration)._delete(body, options)(this.fetch, this.basePath);
     }
 
     /**
      * 
-     * @param {ListResource} body 
+     * @param {ItemResource} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TodoListControllerApi
+     * @memberof TodoItemControllerApi
      */
-    public createList(body: ListResource, options?: any) {
-        return TodoListControllerApiFp(this.configuration).createList(body, options)(this.fetch, this.basePath);
+    public createItem(body: ItemResource, options?: any) {
+        return TodoItemControllerApiFp(this.configuration).createItem(body, options)(this.fetch, this.basePath);
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TodoListControllerApi
+     * @memberof TodoItemControllerApi
      */
-    public getLists(options?: any) {
-        return TodoListControllerApiFp(this.configuration).getLists(options)(this.fetch, this.basePath);
+    public getItems(options?: any) {
+        return TodoItemControllerApiFp(this.configuration).getItems(options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {string} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TodoItemControllerApi
+     */
+    public markChecked(body: string, options?: any) {
+        return TodoItemControllerApiFp(this.configuration).markChecked(body, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {string} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TodoItemControllerApi
+     */
+    public markUnchecked(body: string, options?: any) {
+        return TodoItemControllerApiFp(this.configuration).markUnchecked(body, options)(this.fetch, this.basePath);
     }
 
     /**
@@ -427,10 +583,10 @@ export class TodoListControllerApi extends BaseAPI {
      * @param {RenameResource} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TodoListControllerApi
+     * @memberof TodoItemControllerApi
      */
     public rename(body: RenameResource, options?: any) {
-        return TodoListControllerApiFp(this.configuration).rename(body, options)(this.fetch, this.basePath);
+        return TodoItemControllerApiFp(this.configuration).rename(body, options)(this.fetch, this.basePath);
     }
 
 }

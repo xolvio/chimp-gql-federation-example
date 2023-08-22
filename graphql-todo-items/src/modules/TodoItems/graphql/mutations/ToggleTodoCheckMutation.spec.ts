@@ -1,12 +1,9 @@
 import td from "testdouble";
-import { MutationToggleTodoCheckArgs } from "~generated/graphql/types";
-import { ToggleTodoCheckMutation } from "./ToggleTodoCheckMutation";
-import { GqlContext } from "../../../../context";
-
-const testToggleTodoCheck = (
-  variables: MutationToggleTodoCheckArgs,
-  context: GqlContext,
-) => ToggleTodoCheckMutation({}, variables, context, null);
+import {
+  GqlContext,
+  MutationToggleTodoCheckArgs,
+} from "~generated/graphql/types";
+import { testToggleTodoCheck } from "~generated/graphql/helpers/ToggleTodoCheckMutationSpecWrapper";
 
 test("marks todo as checked", async () => {
   const context = td.object<GqlContext>();

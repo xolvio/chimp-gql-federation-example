@@ -1,19 +1,13 @@
 import td from "testdouble";
 import { MutationAddTodoArgs, GqlContext } from "~generated/graphql/types";
 import { ToDoItem } from "~generated/external-apis";
-import { AddTodoMutation } from "./AddTodoMutation";
-
-const testAddTodo = (variables: MutationAddTodoArgs, context: GqlContext) =>
-  AddTodoMutation({}, variables, context, null);
+import { testAddTodo } from "~generated/graphql/helpers/AddTodoMutationSpecWrapper";
 
 test("AddTodo", async () => {
   const context = td.object<GqlContext>();
 
-  const todoItem: ToDoItem = {
-    id: "",
-    listId: "",
+  const todoItem: Partial<ToDoItem> = {
     text: "text",
-    checked: true,
   };
   const todoItemInput = { listId: "listId", text: "text" };
   td.when(context.todoItemController.createItem(todoItemInput)).thenResolve(

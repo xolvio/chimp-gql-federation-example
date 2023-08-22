@@ -4,4 +4,6 @@ export const ChangeListNameMutation: MutationResolvers["ChangeListName"] = (
   parent,
   { newName, listId },
   context,
-) => context.todoListsController.rename({ text: newName, id: listId });
+) => {
+  return context.todoListsController.rename({ text: newName, id: listId });
+};

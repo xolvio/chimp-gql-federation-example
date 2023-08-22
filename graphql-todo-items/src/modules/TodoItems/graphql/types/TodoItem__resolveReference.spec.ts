@@ -2,14 +2,10 @@ import td from "testdouble";
 
 import { GqlContext } from "~generated/graphql/types";
 import { ToDoItem } from "~generated/external-apis";
-import { TodoItem__resolveReference } from "./TodoItem__resolveReference";
-
-type ParentType = Parameters<typeof TodoItem__resolveReference>[0];
-
-const testTodoItem__resolveReference = (
-  parent: ParentType,
-  context: GqlContext,
-) => TodoItem__resolveReference(parent, context, null);
+import {
+  ParentType,
+  testTodoItem__resolveReference,
+} from "~generated/graphql/helpers/TodoItem__resolveReferenceSpecWrapper";
 
 test("TodoItem__resolveReference", async () => {
   const context = td.object<GqlContext>();

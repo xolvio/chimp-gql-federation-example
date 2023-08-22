@@ -18,6 +18,5 @@ test("Lists", async () => {
   const variables: QueryListsArgs = {};
 
   const result = await testLists(variables, context);
+  expect(result).toEqual(lists);
 });
-
-// Todo: Missing test for the filter

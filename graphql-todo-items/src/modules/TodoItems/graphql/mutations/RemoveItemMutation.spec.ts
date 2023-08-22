@@ -1,12 +1,6 @@
 import td from "testdouble";
-import { MutationRemoveItemArgs } from "~generated/graphql/types";
-import { RemoveItemMutation } from "./RemoveItemMutation";
-import { GqlContext } from "../../../../context";
-
-const testRemoveItem = (
-  variables: MutationRemoveItemArgs,
-  context: GqlContext,
-) => RemoveItemMutation({}, variables, context, null);
+import { GqlContext, MutationRemoveItemArgs } from "~generated/graphql/types";
+import { testRemoveItem } from "~generated/graphql/helpers/RemoveItemMutationSpecWrapper";
 
 test("passes the id to the repository and returns the id", async () => {
   const context = td.object<GqlContext>();

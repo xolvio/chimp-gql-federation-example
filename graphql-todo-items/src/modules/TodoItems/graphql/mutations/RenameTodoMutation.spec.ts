@@ -1,12 +1,6 @@
 import td from "testdouble";
-import { MutationRenameTodoArgs } from "~generated/graphql/types";
-import { RenameTodoMutation } from "./RenameTodoMutation";
-import { GqlContext } from "../../../../context";
-
-const testRenameTodo = (
-  variables: MutationRenameTodoArgs,
-  context: GqlContext,
-) => RenameTodoMutation({}, variables, context, null);
+import { GqlContext, MutationRenameTodoArgs } from "~generated/graphql/types";
+import { testRenameTodo } from "~generated/graphql/helpers/RenameTodoMutationSpecWrapper";
 
 test("RenameTodo", async () => {
   const context = td.object<GqlContext>();
